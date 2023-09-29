@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 function ShowData() {
     const [data, setData] = useState([])
+
     async function fetchData() {
         const result = await axios.get("http://localhost:5000")
             .then((res) => {
@@ -16,6 +17,29 @@ function ShowData() {
         fetchData()
     }, [])
 
+    function handleDeleted(id) {
+        async function fetchDeleteData() {
+            const result = await axios.delete("http://localhost:5000/delete/" + id);
+            if (result.status === 200 && result.statusText === "OK");
+            fetchData()
+        }
+        fetchDeleteData();   
+    }
+
+//     function changeData(id){
+// async function fetchChangedata(){
+//     let res = await axios.put(`http://localhost:4000/change/${id}`, {
+//         name: name,
+//         age: age,
+//         number : number
+       
+//     })
+//     fetchData()
+// }
+// fetchChangedata()
+//     }
+  
+
     return (
         <div className='header'>
             <table>
@@ -25,6 +49,7 @@ function ShowData() {
                         <th>Name</th>
                         <th>Age</th>
                         <th>Phone</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +61,11 @@ function ShowData() {
                                     <td >{student.name}</td>
                                     <td >{student.age}</td>
                                     <td >{student.phone}</td>
-
+                                    <td>
+                                        <button onClick={() => { handleDeleted(student.id) }}>Delete</button>
+                                
+                                    </td>
+                                    
                                 </tr>
                             </>
                         )
@@ -47,7 +76,7 @@ function ShowData() {
 
         </div>
 
-)
+    )
 }
 
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+
 function App() {
 const [name , setName] = useState("")
 const [age, setAge] = useState("")
@@ -25,7 +26,7 @@ console.log(result)
         <label htmlFor="Name"> Name :</label>
         <input type="text" placeholder=' Enter Your FirstName' id='name' value={name} onChange={(e)=>{setName(e.target.value)}} /><br />
 
-        <label htmlFor="age"> age :</label>
+        <label htmlFor="age"> Age :</label>
         <input type="text" placeholder=' Enter Your age' id='age' value={age} 
         onChange={(e)=>{setAge(e.target.value)}}/><br />
 

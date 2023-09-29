@@ -26,4 +26,22 @@ app.post("/new", (req, res) => {
     res.json(students)
 });
 
+app.delete("/delete/:id(\\d+)",(req,res)=>{
+    const idTodelete = Number(req.url.split("/delete/")[1])
+    students = students.filter((stud)=>{
+        return stud.id != idTodelete
+    })
+    res.json(students)
+})
+
+app.put("/change/:id(\\d+)", (req, res) => {
+    const idtoChange = Number(req.url.split("/change/")[1])
+    const updatedUser = req.body
+    students = students.map((student) => {
+        return user.id == idtoChange ?  {...student , ...updatedUser} : student
+    })
+
+    res.json(students)
+})
+
 app.listen(5000, () => console.log("Server started at 5000"))
