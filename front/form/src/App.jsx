@@ -8,7 +8,7 @@ const [phone , setPhone] = useState("")
  
 const Submitted = (e)=>{
   e.preventDefault()
-  axios.post("http://localhost:5000/new" ,{
+  axios.post("http://localhost:5000/student/new" ,{
     name:name,
     age:age,
     phone:phone

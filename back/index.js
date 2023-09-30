@@ -1,47 +1,25 @@
 import express from "express";
 import cors from "cors";
+import studentRouter from './studentRouter.js'
+import connection from "./connection.js";
 
 
-let students = [
-    { id: 1, name: "Nisha Jangir", age: 21, phone: 2372896523 },
-    { id: 2, name: "Hansha Jangir", age: 22, phone: 2372326523 },
-    { id: 3, name: "Arpita Jangir", age: 221, phone: 2372526523 },
 
-
-];
 const app = express()
 
 app.use(express.json())
 app.use(cors({ origin: "http://localhost:5173" }))
+app.use("/student", studentRouter)
 
-app.get("/", (req, res) => {
-    res.json(students)
+// connection.then(() =>{
+//  app.listen(5000, () => {
+// console.log("Server started at 5000")
+// )).catch((err) => console.log("DB ERROR:" + err))
+// }
+
+
+connection.then(()=>{
+app.listen(5000,()=>{
+console.log('app is listening')
 })
-
-app.post("/new", (req, res) => {
-    const newStudent = req.body
-    const newid = students[students.length - 1].id + 1
-    newStudent.id = newid;
-    students.push(newStudent)
-    res.json(students)
-});
-
-app.delete("/delete/:id(\\d+)",(req,res)=>{
-    const idTodelete = Number(req.url.split("/delete/")[1])
-    students = students.filter((stud)=>{
-        return stud.id != idTodelete
-    })
-    res.json(students)
 })
-
-app.put("/change/:id(\\d+)", (req, res) => {
-    const idtoChange = Number(req.url.split("/change/")[1])
-    const updatedUser = req.body
-    students = students.map((student) => {
-        return user.id == idtoChange ?  {...student , ...updatedUser} : student
-    })
-
-    res.json(students)
-})
-
-app.listen(5000, () => console.log("Server started at 5000"))

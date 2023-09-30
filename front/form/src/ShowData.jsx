@@ -7,7 +7,7 @@ function ShowData() {
     const [data, setData] = useState([])
 
     async function fetchData() {
-        const result = await axios.get("http://localhost:5000")
+        const result = await axios.get("http://localhost:5000/student")
             .then((res) => {
                 setData(res.data)
             })
@@ -17,9 +17,9 @@ function ShowData() {
         fetchData()
     }, [])
 
-    function handleDeleted(id) {
+    function handleDeleted() {
         async function fetchDeleteData() {
-            const result = await axios.delete("http://localhost:5000/delete/" + id);
+            const result = await axios.delete("http://localhost:5000/student/delete/");
             if (result.status === 200 && result.statusText === "OK");
             fetchData()
         }
